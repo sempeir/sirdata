@@ -6,7 +6,7 @@ from io import BytesIO
 import io
 
 def sugerir_descripcion(variable, tipo_dato):
-    nombre = variable.lower()
+    nombre = str(variable).lower()
 
     if "id" in nombre:
         return "Identificador único del registro o de la entidad asociada."
@@ -64,7 +64,7 @@ def sugerir_descripcion(variable, tipo_dato):
         else:
             return "Variable de texto registrada en la base de datos."
 def clasificar_variable(variable, tipo_dato):
-    nombre = variable.lower()
+    nombre = str(variable).lower()
 
     # Identificadoras
     if any(p in nombre for p in [
@@ -503,7 +503,8 @@ indirectas_detectadas = []
 sensibles_detectadas = []
 
 for col in df.columns:
-    col_lower = col.lower()
+    for col in df.columns:
+        col_lower = str(col).lower()
 
     if any(palabra in col_lower for palabra in identificadores_directos):
         directas_detectadas.append(col)
